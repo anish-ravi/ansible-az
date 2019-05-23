@@ -3,6 +3,12 @@
 - name: Echo 
   hosts: 127.0.0.1
   connection: local
+  
+  vars:
+  - manageiq_validate_certs: false
+
+  roles:
+  - syncrou.manageiq-automate
 
   tasks:
   - name: Print debug message
