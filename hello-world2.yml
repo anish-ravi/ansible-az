@@ -1,0 +1,17 @@
+---
+# This playbook prints a simple debug message
+- name: Echo 
+  hosts: 127.0.0.1
+  connection: local
+
+  tasks:
+  - name: Print debug message
+    debug: msg="{{ message }}"
+  
+  - name: Save input message to new var in $evm.root
+  manageiq_automate:
+    workspace: "{{ workspace }}"
+    set_attribute: 
+      object: "root"
+      attribute: "test_val"
+      value: "{{ message }}"
