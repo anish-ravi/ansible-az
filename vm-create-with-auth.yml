@@ -10,14 +10,6 @@
     vm_name: testvm
     location: eastus
   tasks:
-  - name: Create a resource group
-    azure_rm_resourcegroup:
-      name: "{{ resource_group }}"
-      location: "{{ location }}"
-      subscription_id: "{{ subscription_id }}"
-      tenant: "{{ tenant }}"
-      client_id: "{{ client_id }}"
-      secret: "{{ secret }}"
   - name: Create virtual network
     azure_rm_virtualnetwork:
       resource_group: "{{ resource_group }}"
