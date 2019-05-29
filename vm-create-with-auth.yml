@@ -7,7 +7,6 @@
   connection: local
   vars:
     resource_group: "{{ resource_group_name }}"
-    vm_name: "{{ vm_name }}"
     location: eastus
   tasks:
   - name: Create virtual network
