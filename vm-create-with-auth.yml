@@ -16,7 +16,7 @@
       name: "{{ vm_name }}"
       address_prefixes: "10.0.0.0/16"
       subscription_id: "{{ subscription_id }}"
-      tenant: "{{ tenant }}"
+      tenant: "{{ tenant_id }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
   - name: Add subnet
@@ -26,7 +26,7 @@
       address_prefix: "10.0.1.0/24"
       virtual_network: "{{ vm_name }}"
       subscription_id: "{{ subscription_id }}"
-      tenant: "{{ tenant }}"
+      tenant: "{{ tenant_id  }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
   - name: Create public IP address
@@ -35,7 +35,7 @@
       allocation_method: Static
       name: "{{ vm_name }}"
       subscription_id: "{{ subscription_id }}"
-      tenant: "{{ tenant }}"
+      tenant: "{{ tenant_id  }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
   - name: Create Network Security Group that allows SSH
@@ -43,7 +43,7 @@
       resource_group: "{{ resource_group }}"
       name: "{{ vm_name }}"
       subscription_id: "{{ subscription_id }}"
-      tenant: "{{ tenant }}"
+      tenant: "{{ tenant_id  }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
       rules:
@@ -62,7 +62,7 @@
       public_ip_name: "{{ vm_name }}"
       security_group: "{{ vm_name }}"
       subscription_id: "{{ subscription_id }}"
-      tenant: "{{ tenant }}"
+      tenant: "{{ tenant_id  }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
   - name: Create VM
@@ -70,7 +70,7 @@
       resource_group: "{{ resource_group }}"
       name: "{{ vm_name }}"
       subscription_id: "{{ subscription_id }}"  
-      tenant: "{{ tenant }}"
+      tenant: "{{ tenant_id  }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
       vm_size: Standard_DS1_v2
