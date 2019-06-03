@@ -10,7 +10,7 @@
   tasks:
   - name: Create virtual network interface card
     azure_rm_networkinterface:
-      resource_group: "{{ resource_group }}"
+      resource_group: "{{ nic_resource_group_name }}"
       name: "{{ nic_name }}"
       virtual_network: "{{ virtual_network }}"
       subnet_name: "{{ subnet_name }}"
@@ -31,6 +31,7 @@
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
       vm_size: "{{ vm_size }}"
+      location: "{{ location }}"
       admin_username: azureuser
       admin_password: Password@123
       ssh_public_keys:
