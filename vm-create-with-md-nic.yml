@@ -21,6 +21,7 @@
       name: "{{ nic_name }}"
       virtual_network: "{{ virtual_network }}"
       subnet_name: "{{ subnet_name }}"
+      create_with_security_group: True
       security_group: "(( network_security_group_name }}"
       ip_configurations:
       - name: "{{ ip_configuration_name }}"
