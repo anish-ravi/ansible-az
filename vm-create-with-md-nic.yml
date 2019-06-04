@@ -1,7 +1,14 @@
 # Description
 # ===========
 # This playbook create an Azure VM with public IP, and open 22 port for SSH
-
+---
+- hosts: all
+  pre_tasks:
+    - name: Verify Ansible meets Drupal VM's version requirements.
+      assert:
+        that: "ansible_version.full is version_compare('2.5.0', '>=')"
+        msg: >
+          "You must update Ansible to at least 2.5.1"
 - name: Create Azure VM
   hosts: localhost
   connection: local
