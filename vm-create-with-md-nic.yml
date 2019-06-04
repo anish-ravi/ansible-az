@@ -44,7 +44,7 @@
       ssh_public_keys:
         - path: /home/azureuser/.ssh/authorized_keys
           key_data: "{{ ssh_key }}"
-      network_interfaces: "{{ subscription_id }}"
+      network_interfaces: "{{ nic_name }}"
       image:
         offer: "{{ os_name }}"
         publisher: "{{ publisher }}"
