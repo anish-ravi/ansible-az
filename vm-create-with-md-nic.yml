@@ -39,7 +39,6 @@
       secret: "{{ secret }}"
       vm_size: "{{ vm_size }}"
       managed_disk_type: "{{ managed_disk_type }}"
-      location: "{{ location }}"
       admin_username: azureuser
       admin_password: Password@123
       ssh_public_keys:
