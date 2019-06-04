@@ -22,7 +22,7 @@
       virtual_network: "{{ virtual_network }}"
       subnet_name: "{{ subnet_name }}"
       create_with_security_group: True
-      security_group: "(( network_security_group_name }}"
+      security_group: Nsg_private
       ip_configurations:
       - name: "{{ ip_configuration_name }}"
         primary: True
