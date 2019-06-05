@@ -10,6 +10,11 @@
     data_disk_sizes: "{{ disk_sizes.split(',') }}"
     data_disk_types: "{{ disk_types.split(',') }}"
     data_disk_luns: "{{ disk_luns.split(',') }}"
+    all_nic_names: "{{ nic_names.split(',') }}"
+    all_nic_ip_configs: "{{ ip_configurations.split(',') }}"
+    all_nic_subnets: "{{ nic_subnets.split(',') }}"
+    all_nic_NSGs: "{{ nic_NSGs.split(',') }}"
+    all_nic_RGs: "{{ nic_resource_groups.split(',') }}"
 
   tasks:
   - name: Create data disk list of dicts
@@ -18,20 +23,39 @@
     loop: "{{ data_disk_sizes|zip(data_disk_types, data_disk_luns)|list }}"
     
 
+  # - name: Create virtual network interface card
+  #   azure_rm_networkinterface:
+  #     resource_group: "{{ nic_resource_group_name }}"
+  #     name: "{{ nic_name }}"
+  #     virtual_network: "{{ virtual_network }}"
+  #     subnet_name: "{{ subnet_name }}"
+  #     security_group: Nsg_private
+  #     ip_configurations:
+  #     - name: "{{ ip_configuration_name }}"
+  #       primary: True
+  #     subscription_id: "{{ subscription_id }}"
+  #     tenant: "{{ tenant }}"
+  #     client_id: "{{ client_id }}"
+  #     secret: "{{ secret }}"
+    
+
   - name: Create virtual network interface card
     azure_rm_networkinterface:
-      resource_group: "{{ nic_resource_group_name }}"
-      name: "{{ nic_name }}"
+      resource_group: "{{ item.4 }}"
+      name: "{{ item.0 }}"
       virtual_network: "{{ virtual_network }}"
-      subnet_name: "{{ subnet_name }}"
+      subnet_name: "{{ item.2 }}"
       security_group: Nsg_private
       ip_configurations:
-      - name: "{{ ip_configuration_name }}"
+      - name: "{{ item.1 }}"
         primary: True
       subscription_id: "{{ subscription_id }}"
       tenant: "{{ tenant }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
+    loop: "{{ all_nic_names|zip(all_nic_ip_configs, all_nic_subnets, all_nic_NSGs, all_nic_RGs)|list }}"
+
+
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: "{{ resource_group }}"
@@ -48,7 +72,7 @@
       ssh_public_keys:
         - path: /home/azureuser/.ssh/authorized_keys
           key_data: "{{ ssh_key }}"
-      network_interfaces: "{{ nic_name }}"
+      network_interfaces: "{{ all_nic_names }}"
       image:
         offer: "{{ os_name }}"
         publisher: "{{ publisher }}"
