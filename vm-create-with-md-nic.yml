@@ -45,7 +45,7 @@
       name: "{{ item.0 }}"
       virtual_network: "{{ virtual_network }}"
       subnet_name: "{{ item.2 }}"
-      security_group: Nsg_private
+      security_group: "{{ item.3 }}
       ip_configurations:
       - name: "{{ item.1 }}"
         primary: True
