@@ -50,6 +50,6 @@
         version: "{{ version }}"
       data_disks:
         - lun: "{{ item.2 }}"
-          disk_size_gb: "{{ item.1 }}"
-          managed_disk_type: "{{ item.0 }}"
+          disk_size_gb: "{{ item.0 }}"
+          managed_disk_type: "{{ item.1 }}"
     loop: "{{ data_disk_sizes|zip(data_disk_types, data_disk_luns)|list }}"
