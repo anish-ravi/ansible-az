@@ -1,19 +1,16 @@
 # Description
 # ===========
-# This playbook create an Azure VM with public IP, and open 22 port for SSH
+# This playbook creates multiple disks/nics
 ---
-- hosts: all
-  pre_tasks:
-    - name: Verify Ansible meets Drupal VM's version requirements.
-      assert:
-        that: "ansible_version.full is version_compare('2.5.0', '>=')"
-        msg: >
-          "You must update Ansible to at least 2.5.1"
 - name: Create Azure VM
   hosts: localhost
   connection: local
   vars:
     resource_group: "{{ resource_group_name }}"
+    data_disk_sizes: "{{ disk_sizes.split(',') }}"
+    data_disk_types: "{{ disk_types.split(',') }}"
+    data_disk_luns: "{{ disk_luns.split(',') }}"
+
   tasks:
   - name: Create virtual network interface card
     azure_rm_networkinterface:
@@ -52,6 +49,7 @@
         sku: "{{ sku }}"
         version: "{{ version }}"
       data_disks:
-        - lun: 0
-          disk_size_gb: 1
-          managed_disk_type: Standard_LRS
+        - lun: "{{ item.2 }}"
+          disk_size_gb: "{{ item.1 }}"
+          managed_disk_type: "{{ item.0 }}"
+        loop: "{{ data_disk_sizes|zip(data_disk_types, data_disk_luns)|list }}"
