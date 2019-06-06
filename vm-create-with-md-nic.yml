@@ -21,23 +21,6 @@
     set_fact:
       all_disks: "{{ all_disks | default([]) | union([{'lun': item.2, 'managed_disk_type': item.1, 'disk_size_gb': item.0}]) }}"
     loop: "{{ data_disk_sizes|zip(data_disk_types, data_disk_luns)|list }}"
-    
-
-  # - name: Create virtual network interface card
-  #   azure_rm_networkinterface:
-  #     resource_group: "{{ nic_resource_group_name }}"
-  #     name: "{{ nic_name }}"
-  #     virtual_network: "{{ virtual_network }}"
-  #     subnet_name: "{{ subnet_name }}"
-  #     security_group: Nsg_private
-  #     ip_configurations:
-  #     - name: "{{ ip_configuration_name }}"
-  #       primary: True
-  #     subscription_id: "{{ subscription_id }}"
-  #     tenant: "{{ tenant }}"
-  #     client_id: "{{ client_id }}"
-  #     secret: "{{ secret }}"
-    
 
   - name: Create virtual network interface card
     azure_rm_networkinterface:
@@ -50,7 +33,7 @@
       - name: "{{ item.1 }}"
         primary: True
       subscription_id: "{{ subscription_id }}"
-      tenant: "{{ tenant }}"
+      tenant: "{{ tenant_id }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
     loop: "{{ all_nic_names|zip(all_nic_ip_configs, all_nic_subnets, all_nic_NSGs, all_nic_RGs)|list }}"
@@ -61,7 +44,7 @@
       resource_group: "{{ resource_group }}"
       name: "{{ vm_name }}"
       subscription_id: "{{ subscription_id }}"  
-      tenant: "{{ tenant }}"
+      tenant: "{{ tenant_id }}"
       client_id: "{{ client_id }}"
       secret: "{{ secret }}"
       vm_size: "{{ vm_size }}"
