@@ -8,6 +8,7 @@
   vars:
     resource_group: "{{ resource_group_name }}"
 
+  tasks:
   - name: Update virtual network interface card
     azure_rm_networkinterface:
       resource_group: "{{ resource_group }}"
