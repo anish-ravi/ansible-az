@@ -1,0 +1,20 @@
+# Description
+# ===========
+# This playbook get the facts of a specified NIC
+---
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+  
+  tasks:
+  - name: Get facts for one network interface
+    azure_rm_networkinterface_facts:
+      resource_group: "{{ resource_group }}"
+      name: "{{ nic_name }}"
+      subscription_id: "{{ subscription_id }}"
+      tenant: "{{ tenant_id }}"
+      client_id: "{{ client_id }}"
+      secret: "{{ secret }}"
+    register: result
+
+  - debug: var=result
